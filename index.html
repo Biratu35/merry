@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmmaker Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Reset and Base Styles */
+        :root {
+            --primary-bg: #0d0d0d;
+            --secondary-bg: #1a1a1a;
+            --text-color: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent-color: #e0b400;
+            --font-main: 'Poppins', sans-serif;
+            --font-headings: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- Global Components --- */
+        section {
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: var(--font-headings);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 5rem;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 3px;
+            color: var(--accent-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--text-color);
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* --- Background Animation --- */
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .hero-bg-animation div {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: animate-bg 25s linear infinite;
+            bottom: -150px;
+        }
+
+        .hero-bg-animation div:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .hero-bg-animation div:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .hero-bg-animation div:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .hero-bg-animation div:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .hero-bg-animation div:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .hero-bg-animation div:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .hero-bg-animation div:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .hero-bg-animation div:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        .hero-bg-animation div:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+        .hero-bg-animation div:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+        @keyframes animate-bg {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.7);
+            backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo-img-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: -1px;
+            font-family: var(--font-headings);
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: url('https://raw.githubusercontent.com/Biratu35/portfolio-website/refs/heads/main/folder-name/photo_1920x1080_cropped.jpg') no-repeat center center/cover;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--text-color);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-headings);
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-content p {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        /* --- About Section --- */
+        #about {
+            background-color: var(--secondary-bg);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            text-align: left;
+            padding: 2rem;
+            border-radius: 10px;
+            background: var(--primary-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-top: 1rem;
+            line-height: 1.8;
+        }
+
+        /* --- Showreel Section --- */
+        .showreel-section {
+            background-color: var(--primary-bg);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .video-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            background: var(--secondary-bg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-item iframe {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            display: block;
+        }
+
+        .video-item-content {
+            padding: 1.5rem;
+        }
+
+        .play-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            font-weight: 700;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .play-button:hover {
+            background-color: #f0c541;
+            transform: translateY(-2px);
+        }
+
+        /* --- Credits, Awards, Press Sections --- */
+        #credits, #awards, #press {
+            background-color: var(--secondary-bg);
+        }
+
+        .credits-list, .awards-list, .press-list {
+            list-style: none;
+            display: grid;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .credits-list li, .awards-list li, .press-list li {
+            background: #111;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            text-align: left;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .credits-list li:hover, .awards-list li:hover, .press-list li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .credits-list h4, .awards-list h4, .press-list h4 {
+            font-family: var(--font-headings);
+            font-size: 1.4rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .credits-list p, .awards-list p, .press-list p {
+            color: var(--text-secondary);
+        }
+
+        .press-list a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .press-list a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* --- Gallery Section --- */
+        #gallery {
+            background-color: var(--primary-bg);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(224, 180, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .image-item:hover::after {
+            opacity: 1;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- Contact Section --- */
+        #contact {
+            background-color: var(--secondary-bg);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #2b2b2b;
+            color: var(--text-color);
+            font-family: var(--font-main);
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .contact-form button {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            letter-spacing: 1px;
+        }
+
+        .contact-form button:hover {
+            background-color: #f0c541;
+            transform: translateY(-3px);
+        }
+
+        /* --- Footer --- */
+        .site-footer {
+            background-color: var(--primary-bg);
+            color: var(--text-secondary);
+            padding: 2rem 0;
+            border-top: 1px solid #2B2B2B;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+        }
+
+        /* --- Animations --- */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            .about-image {
+                margin: 0 auto;
+            }
+            .about-text p {
+                text-align: center;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; }
+            .nav { padding: 1rem; }
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                background: rgba(13, 13, 13, 0.95);
+                backdrop-filter: blur(10px);
+                position: absolute;
+                top: 80px;
+                left: 0;
+                padding: 1rem 0;
+                border-top: 1px solid #2B2B2B;
+            }
+            .nav-links a { font-size: 1.1rem; padding: 0.5rem 0; }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-content p { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .video-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span><i class="fas fa-phone"></i> +251 935 728 212</span>
+        <a href="https://linkedin.com/in/biratu-lemessa-15a4b4294" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Biratu35" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://t.me/Bira35" target="_blank"><i class="fab fa-telegram"></i></a>
+    </div>
+
+    <header>
+        <div class="container">
+            <nav class="nav">
+                <div class="logo-img-group">
+                    <a href="#hero" class="logo">Merry</a>
+                    <img src="https://raw.githubusercontent.com/Biratu35/portfolio-website/refs/heads/main/folder-name/photo_2025-08-05_09-38-33.jpg" alt="Merry profile" class="profile-img" />
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#showreel">Showreel</a></li>
+                    <li><a href="#credits">Credits</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-bg-animation">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div class="hero-content">
+            <h1>Meron Beyene</h1>
+            <p>Artist | Actress | Social Media Host</p>
+        </div>
+    </section>
+
+    <main>
+        <section id="about">
+            <div class="container scroll-animate about-container">
+                <div class="about-image">
+                    <img src="https://raw.githubusercontent.com/Biratu35/portfolio-website/refs/heads/main/folder-name/photo_2025-08-05_19-52-12.jpg" alt="Artist Photo">
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">Biography</h2>
+                    <p>
+                        I am a passionate Ethiopian actress dedicated to bringing powerful stories to life on screen. With a deep love for cinematic expression and a commitment to authentic performance, I have portrayed diverse characters across genres — from emotionally charged dramas to socially conscious narratives. I believe in the power of film to reflect our culture, inspire change, and connect audiences both locally and globally.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="showreel">
+            <div class="container scroll-animate showreel-section">
+                <h2 class="section-title">Showreel</h2>
+                <div class="video-grid">
+                    <div class="video-item">
+                        <iframe src="https://www.youtube.com/embed/qFcEUnPzRHA" title="YouTube video player 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="video-item-content">
+                            <a href="https://www.youtube.com/watch?v=qFcEUnPzRHA" target="_blank" class="play-button">▶ Watch on YouTube</a>
+                        </div>
+                    </div>
+                    <div class="video-item">
+                        <iframe src="https://www.youtube.com/embed/lM40S-5_3wA" title="YouTube video player 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="video-item-content">
+                            <a href="https://www.youtube.com/watch?v=lM40S-5_3wA" target="_blank" class="play-button">▶ Watch on YouTube</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="credits">
+            <div class="container scroll-animate">
+                <h2 class="section-title">Film & Stage Credits</h2>
+                <ul class="credits-list">
+                    <li>
+                        <h4>Sama (ሣማ) (2025)</h4>
+                        <p>Lead Actress</p>
+                      <p>Presented by Adwa Films</p>
+                    </li>     
+                    <li>
+                        <h4>Academic Film and Theatre Work (2023)</h4>
+                        <p>Lead Actress</p>
+                      <p>Bahir Dar University</p>
+                    </li>
+                    <li>
+                        <h4>Mini Media Productions</h4>
+                        <p>Director</p>
+                      <p>high school mini media</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="awards">
+            <div class="container scroll-animate">
+                <h2 class="section-title">Awards & Festivals</h2>
+                <ul class="awards-list">
+                    <li>
+                        <h4>Youth Film Festival (2023) </h4>
+                        <p>Addis Ababa</p>
+                    </li>
+                    <li>
+                <h4>Voices of Women (2022) </h4>
+            <p>For the documentary of University </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="container scroll-animate">
+                <h2 class="section-title">Gallery</h2>
+                <div class="image-grid">
+                    <div class="image-item">
+                        <img src="https://raw.githubusercontent.com/Biratu35/portfolio-website/refs/heads/main/folder-name/photo_2025-08-06_10-45-42.jpg" alt="Film still 1">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://raw.githubusercontent.com/Biratu35/portfolio-website/refs/heads/main/folder-name/photo_2025-08-06_10-45-52.jpg" alt="Headshot">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://raw.githubusercontent.com/Biratu35/portfolio-website/refs/heads/main/folder-name/photo_2025-08-06_10-46-01.jpg" alt="Behind the scenes">
+                    </div>
+                    <div class="image-item">
+                        <img src="https://raw.githubusercontent.com/Biratu35/portfolio-website/refs/heads/main/folder-name/photo_2025-08-06_10-47-01.jpg" alt="Film still 2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container scroll-animate">
+                <h2 class="section-title">Get In Touch</h2>
+                <form action="https://formsubmit.co/merihail0@gmail.com" method="POST" class="contact-form">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/meronbeyene/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://t.me/MER6Y" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="https://wa.me/+251966977469" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://mail.google.com/mail/?view=cm&to=merihail0@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
+            
+        </div>
+        <p class="footer-text">© 2025 Meron Beyene. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.nav-links a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove("active");
+                    }
+                });
+            });
+
+            // Intersection Observer for scroll animations
+            const animateElements = document.querySelectorAll('.scroll-animate');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Hamburger menu toggle
+            const hamburger = document.getElementById("hamburger");
+            const navLinks = document.getElementById("nav-links");
+
+            hamburger.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+        });
+    </script>
+</body>
+</html>
